@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss';
+import colors from 'tailwindcss/colors';
 
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
@@ -7,14 +8,23 @@ export default {
     colors: {
       lightPurple: '#9D58F9',
       darkPurple: '#7B24BD',
-      blue: '#418dde',
-      pink: '#de5f83',
+      blue: {
+        default: '#418DDE',
+        hover: '#3B59F5',
+      },
+      pink: {
+        default: '#DE5F83',
+        hover: '#F5376D',
+      },
       white: '#FAFAFA',
       black: '#101010',
       bgWhite: '#FAFAFA',
       bgBlack: '#0d0314',
     },
     extend: {
+      animation: {
+        bounce: 'bounce 1500ms ease-in-out infinite',
+      },
       fontSize: {
         header1: '48px',
         header2: '40px',
@@ -22,6 +32,9 @@ export default {
         button: '28px',
         body1: '18px',
         body2: '16px',
+      },
+      colors: {
+        ...colors,
       },
     },
   },

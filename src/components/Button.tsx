@@ -8,7 +8,7 @@ interface IButton {
   onClick?: () => void;
 }
 
-export default function Button({ label, className, icon, click, onClick }: IButton) {
+export function Button({ label, className, icon, click, onClick }: IButton) {
   const Button = click ? 'a' : 'button';
   const props = click ? { href: click, className } : { onClick, className };
 

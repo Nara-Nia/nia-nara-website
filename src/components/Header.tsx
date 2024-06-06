@@ -10,24 +10,84 @@ interface IHeader {
 }
 
 export function Header({ darkMode, setDarkMode }: IHeader) {
-  const [isOpen, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const navLinks = [
+    {
+      title: 'Home',
+      link: '/',
+    },
+    {
+      title: 'Comandos',
+      link: '/commands',
+    },
+    {
+      title: 'Suporte',
+      link: '/support',
+    },
+  ];
 
   function toggleDarkMode() {
     setDarkMode(!darkMode);
   }
 
-  return (
-    <header className="flex justify-between items-center bg-darkPurple w-full h-12 px-4">
-      <h1 className="text-button text-white font-semibold">Nia & Nara</h1>
+  function handleMenu() {
+    setIsOpen(!isOpen);
+    console.log(isOpen);
+  }
 
-      <div className="flex justify-center items-center gap-1">
-        <button className="p-3" onClick={toggleDarkMode}>
-          <img className="h-5" src={darkMode ? Sun : Moon} alt="color mode" />
-        </button>
-        <button>
-          <Hamburger toggled={isOpen} toggle={setOpen} label="Show menu" color="#FAFAFA" size={28} />
-        </button>
-      </div>
-    </header>
+  return (
+    <>
+      <header className="flex justify-between items-center bg-purple-700 w-full h-12 px-4">
+        <h1 className="text-button text-gray-50 font-semibold">Nia & Nara</h1>
+
+        <div className="flex justify-center items-center gap-1">
+          <button className="p-3 rounded-md active:bg-purple-500" onClick={toggleDarkMode}>
+            <img className="h-5" src={darkMode ? Sun : Moon} alt="color mode" />
+          </button>
+
+          <div className="hidden md:block">
+            <div className="ml-12 flex align-baseline space-x-4">
+              {navLinks.map((link, index) => (
+                <a
+                  key={index}
+                  className="text-white font-semibold transition-all duration-500 hover:bg-purple-500 p-2.5"
+                  href={link.link}
+                >
+                  {link.title}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex md:hidden">
+            <button
+              type="button"
+              onClick={handleMenu}
+              className="inline-flex items-center justify-center rounded-md text-gray-400 hover:text-white active:bg-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+            >
+              <span className="sr-only">Open main menu</span>
+              <Hamburger toggled={isOpen} toggle={setIsOpen} label="Show menu" color="#F9FAFB" size={24} />
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {isOpen && (
+        <div className="md:hidden bg-gradient-to-b from-purple-700 to-purple-950">
+          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            {navLinks.map((link, index) => (
+              <a
+                key={index}
+                className="text-gray-300 hover:bg-purple-500 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                href={link.link}
+              >
+                {link.title}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+    </>
   );
 }
