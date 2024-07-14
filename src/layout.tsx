@@ -1,8 +1,8 @@
-import { Header } from './components/Header';
+import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer';
 import { useEffect, useState } from 'react';
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+export default function Layout({ children }: { children: React.ReactNode }) {
   const [darkMode, setDarkMode] = useState<boolean>(localStorage.getItem('theme') === 'dark');
 
   useEffect(() => {
@@ -12,10 +12,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className={`${darkMode ? 'dark' : 'light'} min-h-screen bg-slate-100 dark:bg-slate-900`}>
       <Header darkMode={darkMode} setDarkMode={setDarkMode} />
-      <main className="flex-grow">{children}</main>
+      <main>{children}</main>
       <Footer />
     </div>
   );
 };
-
-export default Layout;

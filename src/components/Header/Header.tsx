@@ -1,15 +1,9 @@
-import Moon from '../assets/moon.svg';
-import Sun from '../assets/sun.svg';
-
 import { Divide as Hamburger } from 'hamburger-react';
 import { Link } from 'react-router-dom';
 
-import { Dispatch, SetStateAction, useState } from 'react';
-
-interface IHeader {
-  darkMode: boolean;
-  setDarkMode: Dispatch<SetStateAction<boolean>>;
-}
+import { IHeader } from './HeaderProps';
+import { useState } from 'react';
+import { DarkMode } from '../DarkMode/DarkMode';
 
 export function Header({ darkMode, setDarkMode }: IHeader) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -29,26 +23,30 @@ export function Header({ darkMode, setDarkMode }: IHeader) {
     },
   ];
 
-  function toggleDarkMode() {
-    setDarkMode(!darkMode);
-  }
-
   function handleMenu() {
-    setIsOpen(!isOpen);
+    return setIsOpen(!isOpen);
   }
 
   return (
     <div>
       <header className="flex justify-between items-center bg-purple-700 w-full h-12 px-4 relative z-10">
-        <h1 className="text-button text-slate-50 font-semibold">Nia & Nara</h1>
+        <h1 className="text-2xl text-slate-50 font-semibold md:text-3xl">Nia & Nara</h1>
 
-        <div className="flex justify-center items-center gap-1">
-          <button className="p-3 rounded-md active:bg-purple-500" onClick={toggleDarkMode}>
-            <img className="h-5" src={darkMode ? Sun : Moon} alt="color mode" />
+        <div className="flex items-center gap-2 md:gap-8">
+          <DarkMode darkMode={darkMode} setDarkMode={setDarkMode} />
+
+          <button
+            type="button"
+            onClick={handleMenu}
+            className="flex items-center rounded-md text-gray-400 hover:text-white active:bg-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white md:hidden"
+          >
+
+            <span className="sr-only">Open main menu</span>
+            <Hamburger toggled={isOpen} toggle={setIsOpen} label="Show menu" color="#F9FAFB" size={24} />
           </button>
 
-          <div className="hidden md:block">
-            <div className="ml-12 flex align-baseline space-x-4">
+          <div className="hidden md:flex">
+            <div className="flex gap-4">
               {navLinks.map((link, index) => (
                 <Link
                   key={index}
@@ -59,17 +57,6 @@ export function Header({ darkMode, setDarkMode }: IHeader) {
                 </Link>
               ))}
             </div>
-          </div>
-
-          <div className="flex md:hidden">
-            <button
-              type="button"
-              onClick={handleMenu}
-              className="inline-flex items-center justify-center rounded-md text-gray-400 hover:text-white active:bg-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-            >
-              <span className="sr-only">Open main menu</span>
-              <Hamburger toggled={isOpen} toggle={setIsOpen} label="Show menu" color="#F9FAFB" size={24} />
-            </button>
           </div>
         </div>
       </header>
