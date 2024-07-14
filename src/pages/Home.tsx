@@ -3,9 +3,10 @@ import Logo from '../assets/logo.svg';
 import Nia from '../assets/nia.svg';
 import Nara from '../assets/nara.svg';
 
-import { Button } from '../components/Button';
+import { Button } from '../components/Button/Button';
 
 import { useState } from 'react';
+import { useMediaQuery } from '../utils/useMediaQuery';
 
 export default function Home() {
   const [currentInfoBot, setCurrentInfoBot] = useState<string | null>(null);
@@ -62,13 +63,13 @@ export default function Home() {
         return (
           <>
             <button
-              className="flex justify-center items-center w-[55%] h-14 bg-blue-500 rounded text-2xl text-slate-50 font-normal border border-slate-50 transition-all"
+              className="flex justify-center items-center w-[55%] h-14 bg-blue-500 rounded text-2xl text-slate-50 font-normal border border-slate-50 transition-all duration-200"
               onClick={() => setCurrentInfoBot('Nia')}
             >
               Nia
             </button>
             <button
-              className="flex justify-center items-center w-[40%] h-12 bg-purple-700 rounded opacity-60 text-2xl text-slate-50 font-normal hover:opacity-90 hover:transition-all hover:scale-[1.0]"
+              className="flex justify-center items-center w-[40%] h-12 bg-purple-700 rounded opacity-60 text-2xl text-slate-50 font-normal hover:opacity-90 hover:transition-all hover:scale-[1.0] duration-200"
               onClick={() => setCurrentInfoBot('Nara')}
             >
               Nara
@@ -79,13 +80,13 @@ export default function Home() {
         return (
           <>
             <button
-              className="flex justify-center items-center w-[40%] h-12 bg-purple-700 rounded opacity-60 text-2xl text-slate-50 font-normal hover:opacity-90 transition-all hover:scale-[1.02]"
+              className="flex justify-center items-center w-[40%] h-12 bg-purple-700 rounded opacity-60 text-2xl text-slate-50 font-normal hover:opacity-90 transition-all hover:scale-[1.02] duration-200"
               onClick={() => setCurrentInfoBot('Nia')}
             >
               Nia
             </button>
             <button
-              className="flex justify-center items-center w-[55%] h-14 bg-pink-500 rounded text-2xl text-slate-50 font-normal border border-bgslate-50 transition-all"
+              className="flex justify-center items-center w-[55%] h-14 bg-pink-500 rounded text-2xl text-slate-50 font-normal border border-bgslate-50 transition-all duration-200"
               onClick={() => setCurrentInfoBot('Nara')}
             >
               Nara
@@ -96,13 +97,13 @@ export default function Home() {
         return (
           <>
             <button
-              className="flex justify-center items-center w-[40%] h-12 bg-purple-700 rounded opacity-60 text-2xl text-slate-50 font-normal hover:opacity-90 transition-all hover:scale-[1.02]"
+              className="flex justify-center items-center w-[40%] h-12 bg-purple-700 rounded opacity-60 text-2xl text-slate-50 font-normal hover:opacity-90 transition-all hover:scale-[1.02] duration-200"
               onClick={() => setCurrentInfoBot('Nia')}
             >
               Nia
             </button>
             <button
-              className="flex justify-center items-center w-[40%] h-12 bg-purple-700 rounded opacity-60 text-2xl text-slate-50 font-normal hover:opacity-90 transition-all hover:scale-[1.02]"
+              className="flex justify-center items-center w-[40%] h-12 bg-purple-700 rounded opacity-60 text-2xl text-slate-50 font-normal hover:opacity-90 transition-all hover:scale-[1.02] duration-200"
               onClick={() => setCurrentInfoBot('Nara')}
             >
               Nara
@@ -114,30 +115,38 @@ export default function Home() {
 
   return (
     <>
-      <div className="mx-2 mt-6 flex justify-center">
-        <img className="border border-purple-700" src={Bots} alt="ilustração dos bots Nia e Nara" />
+      <div className="p-4 flex justify-center md:flex-col md:items-center md:bg-slate-950">
+        <img
+          className="border border-purple-700 md:max-w-[30rem] mt-4"
+          src={Bots}
+          alt="ilustração dos bots Nia e Nara"
+        />
+        <p className="hidden text-2xl font-medium text-slate-50 text-center md:block mt-2 mb-8 min-w-full">
+          Clique nas personagens para inspecionar mais informações
+        </p>
       </div>
-      <div className="mx-6 my-6">
-        <h2 className="text-button uppercase font-semibold text-purple-500 text-center">Conheça os Bots</h2>
-        <p className="text-base text-center align-middle text-slate-950 dark:text-slate-50">
+
+      <div className="mx-6 mb-7 md:mx-60 md:my-16">
+        <h2 className="text-h2 uppercase font-semibold text-purple-500 text-center md:text-left md:text-4xl">Conheça os Bots</h2>
+        <p className="text-lg text-center text-slate-950 dark:text-slate-50 md:text-left md:text-2xl">
           As bots irmãs para turbinar seu servidor Discord!
         </p>
 
         <Button
-          className="flex justify-center items-center w-auto h-12 bg-purple-700 min-w-full rounded my-4 transition-transform hover:scale-[1.05]"
+          className="my-4 md:flex md:w-full"
           label="Informações"
-          click="#info-bot"
+          href={useMediaQuery(728) ? "#info-bot" : undefined}
           icon
         />
 
-        <p className="text-base text-slate-950 dark:text-slate-50">
+        <p className="text-base text-slate-950 dark:text-slate-50 md:text-lg">
           Conheça os bots que vão transformar a experiência do seu servidor no Discord! Com Nia e Nara, você não precisa
           mais se preocupar com monitoramento constante ou a falta de diversão entre os membros.
         </p>
       </div>
-
+      
       <div
-        className="flex flex-col justify-between p-6 min-h-[35rem] bg-slate-950 bg-center bg-contain bg-no-repeat relative"
+        className="flex flex-col justify-between p-6 min-h-[35rem] bg-slate-950 bg-center bg-contain bg-no-repeat relative md:hidden"
         id="info-bot"
       >
         <img
