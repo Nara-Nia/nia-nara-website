@@ -3,10 +3,29 @@ import { Footer } from './components/Footer';
 import { useEffect, useState } from 'react';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  const [darkMode, setDarkMode] = useState<boolean>(localStorage.getItem('theme') === 'dark');
+  const [darkMode, setDarkMode] = useState<boolean>(false);
 
   useEffect(() => {
-    darkMode ? localStorage.setItem('theme', 'dark') : localStorage.removeItem('theme');
+    const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    setDarkMode(darkModeMediaQuery.matches);
+
+    function handleChange(e: MediaQueryListEvent) {
+      return setDarkMode(e.matches);
+    };
+
+    darkModeMediaQuery.addEventListener('change', handleChange);
+
+    return () => {
+      darkModeMediaQuery.removeEventListener('change', handleChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
   }, [darkMode]);
 
   return (
