@@ -10,7 +10,7 @@ export default {
         bounce: 'bounce 1500ms ease-in-out infinite',
       },
       fontSize: {
-        button: ['28px', '36px'],
+        h2: ['1.75rem' /* 28px */, '2.25rem' /* 36px */],
       },
       colors: {
         ...colors,
