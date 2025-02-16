@@ -1,5 +1,6 @@
 import { Divide as Hamburger } from 'hamburger-react';
-import { Link } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { IHeader } from './HeaderProps';
 import { useState } from 'react';
@@ -7,6 +8,10 @@ import { DarkMode } from '../DarkMode/DarkMode';
 
 export function Header({ darkMode, setDarkMode }: IHeader) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const userLogged = Cookies.get("discord_user") 
+    ? JSON.parse(Cookies.get("discord_user") ?? "{}") 
+    : null;
+    const navigate = useNavigate()
 
   const navLinks = [
     {
@@ -26,6 +31,12 @@ export function Header({ darkMode, setDarkMode }: IHeader) {
   function handleMenu() {
     return setIsOpen(!isOpen);
   }
+
+  
+  const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
+  const REDIRECT_URI = import.meta.env.VITE_REDIRECT_URI;
+
+  const AUTH_URL = ` https://discord.com/oauth2/authorize?client_id=${CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=identify+email`;
 
   return (
     <div>
@@ -56,6 +67,35 @@ export function Header({ darkMode, setDarkMode }: IHeader) {
                   {link.title}
                 </Link>
               ))}
+              
+              {!userLogged ? (
+                <button
+                  onClick={() => window.location.href = AUTH_URL}
+                  style={{
+                    padding: "10px",
+                    background: "#5865F2",
+                    color: "#fff",
+                    borderRadius: "5px",
+                    fontSize: "16px"
+                }}
+                > 
+                  SignIn
+                </button>
+              ) : (
+                <button
+                  onClick={() => {Cookies.remove('discord_user'); navigate('/deslogado')}}
+                  style={{
+                    padding: "10px",
+                    background: "#5865F2",
+                    color: "#fff",
+                    borderRadius: "5px",
+                    fontSize: "16px"
+                }}
+              > 
+                Logout
+              </button>
+              )}
+
             </div>
           </div>
         </div>

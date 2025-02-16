@@ -31,7 +31,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className={`${darkMode ? 'dark' : 'light'} min-h-screen bg-slate-100 dark:bg-slate-900`}>
       <Header darkMode={darkMode} setDarkMode={setDarkMode} />
-      <main>{children}</main>
+      <main className="min-h-[53.2rem]">{children}</main>
       <Footer />
     </div>
   );

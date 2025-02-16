@@ -2,8 +2,8 @@ import { Suspense, lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Layout from '../layout';
 
-// Lazy loading dos componentes
 const Home = lazy(() => import('../pages/Home'));
+const SignIn = lazy(() => import('../pages/SignIn'));
 const NotFound = lazy(() => import('../pages/NotFound'));
 const Loading = lazy(() => import('../pages/Loading'));
 
@@ -19,6 +19,14 @@ export default function Router() {
             </Layout>
           }
         />
+      <Route 
+        path="/sign-in" 
+        element={
+          <Layout>
+            <SignIn />
+          </Layout>
+        } 
+      />
         <Route
           path="*"
           element={
