@@ -11,7 +11,7 @@ export const handleLogin = async (code: string, navigate: NavigateFunction, setU
                 client_secret: "ndP_3Vic2cq4vapYFwJx5VdOpmP08hfw",
                 grant_type: "authorization_code",
                 code,
-                redirect_uri: "http://localhost:5173/sign-in"
+                redirect_uri: "https://nia-nara-website.vercel.app/sign-in"
             }),
             { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
         );
