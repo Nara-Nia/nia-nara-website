@@ -7,9 +7,11 @@ import { Button } from '../components/Button/Button';
 
 import { useState } from 'react';
 import { useMediaQuery } from '../utils/useMediaQuery';
+import { useUserContext } from '../contexts/UserContext';
 
 export default function Home() {
   const [currentInfoBot, setCurrentInfoBot] = useState<string | null>(null);
+  const {user} = useUserContext();
 
   function renderInfoBot() {
     switch (currentInfoBot) {
@@ -116,6 +118,7 @@ export default function Home() {
   return (
     <>
       <div className="p-4 flex justify-center md:flex-col md:items-center md:bg-slate-950">
+        <p className='text-slate-50'>{user?.username}</p>
         <img
           className="border border-purple-700 md:max-w-[30rem] mt-4"
           src={Bots}

@@ -7,11 +7,11 @@ export const handleLogin = async (code: string, navigate: NavigateFunction, setU
         const response = await axios.post(
             "https://discord.com/api/oauth2/token",
             new URLSearchParams({
-                client_id: "1174352498203570237",
+                client_id: import.meta.env.VITE_CLIENT_ID,
                 client_secret: "ndP_3Vic2cq4vapYFwJx5VdOpmP08hfw",
                 grant_type: "authorization_code",
                 code,
-                redirect_uri: "https://nia-nara-website.vercel.app/sign-in"
+                redirect_uri: import.meta.env.VITE_REDIRECT_URI
             }),
             { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
         );

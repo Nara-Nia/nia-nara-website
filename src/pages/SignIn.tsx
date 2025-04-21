@@ -7,7 +7,7 @@ export default function SignIn() {
     const {user, setUser} = useUserContext();
     const [searchParams] = useSearchParams();
     const code = searchParams.get("code");
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
    useEffect(() => {
     async function handleAuth() {
@@ -17,7 +17,7 @@ export default function SignIn() {
     }
     
     handleAuth()
-   }, [])
+   }, [])   
     
     return user ? (
         <div>
